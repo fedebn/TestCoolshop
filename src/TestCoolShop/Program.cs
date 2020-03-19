@@ -38,9 +38,6 @@ namespace TestCoolShop
 
                 string dataToSearch = args[2];
 
-                Console.WriteLine("Press any key to start the execution");
-                Console.ReadKey();
-
                 CsvAnalyzer csv = new CsvAnalyzer(path);
 
                 var res = csv.SelectByColummData(column, dataToSearch);
