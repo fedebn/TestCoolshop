@@ -1,9 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TestCoolShop
 {
@@ -19,7 +14,11 @@ namespace TestCoolShop
         /// Search entry in csv file formatted as:
         /// Key,Surname,Name,BirthDate
         /// </summary>
-        /// <param name="args">Rapresent the input parameter, in particular path key name</param>
+        /// <param name="args">Rapresent the input parameter, in particular path key name
+        /// args[0] file path
+        /// args[1] column
+        /// args[2] data
+        /// </param>
         static void Main(string[] args)
         {
             try

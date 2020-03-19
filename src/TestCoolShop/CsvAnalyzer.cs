@@ -16,6 +16,10 @@ namespace TestCoolShop
 
         public CsvAnalyzer() { }
 
+        /// <summary>
+        /// Ctor of CsvAnalyzer
+        /// </summary>
+        /// <param name="path">set the path of the file</param>
         public CsvAnalyzer(string path)
         {
             Path = path;
@@ -37,7 +41,7 @@ namespace TestCoolShop
                     if (string.IsNullOrEmpty(line))
                         break;
 
-                    var extData =line.Split(',');
+                    var extData = line.Split(',');
 
                     if (extData.Length < col)
                         throw new ArgumentOutOfRangeException($"Column {col} not present, in selcted file");
