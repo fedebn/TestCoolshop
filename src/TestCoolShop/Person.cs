@@ -25,7 +25,7 @@ namespace TestCoolShop
 
         public override string ToString()
         {
-            return $"{Id},{Surname},{Name},{BirthDate}";
+            return $"{Id},{Surname},{Name},{BirthDate.Day}/{BirthDate.Month}/{BirthDate.Year}";
         }
     }
 }
