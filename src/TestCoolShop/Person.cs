@@ -22,5 +22,10 @@ namespace TestCoolShop
             Surname = surname;
             BirthDate = birthdate;
         }
+
+        public override string ToString()
+        {
+            return $"{Id},{Surname},{Name},{BirthDate}";
+        }
     }
 }

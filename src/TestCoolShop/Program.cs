@@ -7,30 +7,45 @@ using System.Threading.Tasks;
 
 namespace TestCoolShop
 {
+    /*
+     * CSV file example
+     * 1,Rossi,Fabio,01/06/1990;
+     * 2,Gialli,Alessandro,02/07/1989;
+     * 3,Verdi,Alberto,03/08/1987;
+     * */
     class Program
     {
+        /// <summary>
+        /// Search entry in csv file formatted as:
+        /// Key,Surname,Name,BirthDate
+        /// </summary>
+        /// <param name="args">Rapresent the input parameter, in particular path key name</param>
         static void Main(string[] args)
         {
             try
             {
                 if (args == null)
-                    throw new ArgumentException("Input not inserted");
+                    throw new ArgumentException("Input not inserted!");
 
-                if(args.Length != 3)
-                    throw new ArgumentException("Check input parameter");
+                if (args.Length != 3)
+                    throw new ArgumentException("Check input parameter!");
 
                 string path = args[0];
+
                 int id;
                 if (!int.TryParse(args[1], out id))
-                    throw new ArgumentException("Can't find id");
+                    throw new ArgumentException("Can't find id!");
+
                 string name = args[2];
 
-                File.ReadLines(path)
+                var result = File.ReadLines(path)
                      .Select(ParsePersonFromLine)
-                     .Where(p => p.Name == "Peter")
+                     .Where(p => p.Name == name)
                      .FirstOrDefault();
+                
+                Console.WriteLine(result.ToString());
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
@@ -47,13 +62,14 @@ namespace TestCoolShop
             Person p = new Person();
 
             p.Id = Int32.Parse(parts[0]);
-            p.Name = parts[1];
-            p.Surname = parts[2];
+            p.Surname = parts[1];
+            p.Name = parts[2];
             DateTime BirthDate;
-            if (DateTime.TryParse(parts[3], out BirthDate))
+            string date = parts[3].Replace(";", string.Empty);//remove final charater
+            if (DateTime.TryParse(date, out BirthDate))
                 p.BirthDate = BirthDate;
             else
-                throw new ArgumentException("Can't find birthdate");
+                throw new ArgumentException("Can't parse birthdate");
 
             return p;
         }
