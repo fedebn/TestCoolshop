@@ -5,11 +5,29 @@ namespace TestCoolShop
 {
     public class CsvAnalyzer
     {
+        #region Fileds
+
+        string _path;
+
+        #endregion
+
         #region Properties
         /// <summary>
         /// File path
         /// </summary>
-        public string Path { get; set; }
+        public string Path
+        {
+            get => _path;
+            set
+            {
+                if (File.Exists(value))
+                    _path = value;
+                else
+                    throw new ArgumentException($"Selected file not found. ({value})");
+            }
+        }
+
+        public char Separator { get; set; }
 
         #endregion
 
@@ -20,9 +38,16 @@ namespace TestCoolShop
         /// Ctor of CsvAnalyzer
         /// </summary>
         /// <param name="path">set the path of the file</param>
-        public CsvAnalyzer(string path)
+        public CsvAnalyzer(string path) : this(path, char.Parse(string.Empty)) { }
+
+        /// <summary>
+        /// Ctor of CsvAnalyzer
+        /// </summary>
+        /// <param name="path">set the path of the file</param>
+        public CsvAnalyzer(string path, char separator)
         {
             Path = path;
+            Separator = separator;
         }
 
         /// <summary>

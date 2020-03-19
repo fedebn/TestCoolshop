@@ -23,10 +23,7 @@ namespace TestCoolShop
         {
             try
             {
-                if (args == null)
-                    throw new ArgumentException("Input not inserted!");
-
-                if (args.Length != 3)
+                if (args == null || args.Length != 3)
                     throw new ArgumentException("Check input parameter!");
 
                 string path = args[0];
@@ -37,11 +34,11 @@ namespace TestCoolShop
 
                 string dataToSearch = args[2];
 
-                CsvAnalyzer csv = new CsvAnalyzer(path);
+                CsvAnalyzer csv = new CsvAnalyzer(path, ',');
 
                 var res = csv.SelectByColummData(column, dataToSearch);
                 if (string.IsNullOrEmpty(res))
-                    Console.WriteLine($"Data not found in file {path}");
+                    throw new Exception($"Data not found in file selected file! (path = {path}, column = {column}, data = {dataToSearch})");
                 else
                     Console.WriteLine(res);
             }
