@@ -32,18 +32,22 @@ namespace TestCoolShop
 
                 string path = args[0];
 
-                int id;
-                if (!int.TryParse(args[1], out id))
-                    throw new ArgumentException("Can't find id!");
+                uint column;
+                if (!uint.TryParse(args[1], out column))
+                    throw new ArgumentException("Can't find column id!");
 
-                string name = args[2];
+                string dataToSearch = args[2];
 
-                var result = File.ReadLines(path)
-                     .Select(ParsePersonFromLine)
-                     .Where(p => p.Name == name)
-                     .FirstOrDefault();
-                
-                Console.WriteLine(result.ToString());
+                Console.WriteLine("Press any key to start the execution");
+                Console.ReadKey();
+
+                CsvAnalyzer csv = new CsvAnalyzer(path);
+
+                var res = csv.SelectByColummData(column, dataToSearch);
+                if (string.IsNullOrEmpty(res))
+                    Console.WriteLine($"Data not found in file {path}");
+                else
+                    Console.WriteLine(res);
             }
             catch (Exception e)
             {
@@ -54,24 +58,6 @@ namespace TestCoolShop
                 Console.WriteLine("Press any key to exit");
                 Console.ReadKey();
             }
-        }
-
-        private static Person ParsePersonFromLine(string line)
-        {
-            string[] parts = line.Split(',');
-            Person p = new Person();
-
-            p.Id = Int32.Parse(parts[0]);
-            p.Surname = parts[1];
-            p.Name = parts[2];
-            DateTime BirthDate;
-            string date = parts[3].Replace(";", string.Empty);//remove final charater
-            if (DateTime.TryParse(date, out BirthDate))
-                p.BirthDate = BirthDate;
-            else
-                throw new ArgumentException("Can't parse birthdate");
-
-            return p;
         }
     }
 }
